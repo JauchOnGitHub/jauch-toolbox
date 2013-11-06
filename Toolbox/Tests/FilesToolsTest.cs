@@ -1,17 +1,19 @@
-﻿using Toolbox.Core;
+﻿using Toolbox.Core.Files;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.IO;
+using System.Collections.Generic;
 
 namespace Tests
 {
     
     
     /// <summary>
-    ///This is a test class for StringExtractorTest and is intended
-    ///to contain all StringExtractorTest Unit Tests
+    ///This is a test class for FilesToolsTest and is intended
+    ///to contain all FilesToolsTest Unit Tests
     ///</summary>
    [TestClass()]
-   public class StringExtractorTest
+   public class FilesToolsTest
    {
 
 
@@ -65,23 +67,27 @@ namespace Tests
 
 
       /// <summary>
-      ///A test for ExtractTimeIntervalFromString
+      ///A test for FindFiles
       ///</summary>
       [TestMethod()]
-      public void ExtractTimeIntervalFromStringTest()
+      public void FindFilesFindFilesInInterval()
       {
-         string input = "file_name_234_20121001-00-2012.1101-00.hdf5"; // TODO: Initialize to an appropriate value
-         string regex_pattern = null; // TODO: Initialize to an appropriate value
-         string date_pattern = null; // TODO: Initialize to an appropriate value
-         DatesInterval expected = new DatesInterval(new DateTime(2012, 10, 1, 0, 0, 0), new DateTime(2012, 11, 1, 0, 0, 0)); // TODO: Initialize to an appropriate value
-         DatesInterval actual;
-         actual = StringExtractor.ExtractTimeIntervalFromString(input, regex_pattern, date_pattern);
-         Assert.AreEqual(expected.Start, actual.Start);
-         Assert.AreEqual(expected.End, actual.End);
-         //Assert.Inconclusive("Verify the correctness of this test method.");
+         string path = @"\\datacenter\Meteo\WRF\MeteoGalicia\HDF"; // TODO: Initialize to an appropriate value
+         string pattern ="WRF-MG-d01*.hdf5"; // TODO: Initialize to an appropriate value
+         string file_name_pattern = string.Empty; // TODO: Initialize to an appropriate value
+         string date_pattern = string.Empty; // TODO: Initialize to an appropriate value
+         DateTime start = new DateTime(2013,10,10,2,0,0); // TODO: Initialize to an appropriate value
+         DateTime end = new DateTime(2013,10,13,7,0,0); // TODO: Initialize to an appropriate value
+         SearchOption so = SearchOption.TopDirectoryOnly;
+         
+         List<FileInfo> actual;
+         actual = FilesTools.FindFiles(path, pattern, file_name_pattern, date_pattern, start, end, so);
 
-         FilesToolsTest ft = new FilesToolsTest();
-         ft.FindFilesFindFilesInInterval();
+         foreach (FileInfo fi in actual)
+            Console.WriteLine("{0}", fi.Name);
+
+         Console.WriteLine("\nPress a key...");
+         //Console.ReadKey();
       }
    }
 }

@@ -71,14 +71,14 @@ namespace Toolbox.Core
             }
          }
 
-         matches_ = Regex.Matches(input, @"(?<start>\d{4}\D\d{2}\D\d{2}\D\d{2}).(?<end>\d{4}\D\d{2}\D\d{2}\D\d{2})");
+         matches_ = Regex.Matches(input, @"(?<start>\d{4}\D?\d{2}\D?\d{2}\D?\d{2}).(?<end>\d{4}\D?\d{2}\D?\d{2}\D?\d{2})");
          if (matches_.Count == 1) //start and end are in the format yyyy-MM-dd-HH
          {
             return new DatesInterval(DateTime.ParseExact(Regex.Replace(matches_[0].Groups["start"].Value, @"\D", ""), "yyyyMMddHH", CultureInfo.InvariantCulture),
                                      DateTime.ParseExact(Regex.Replace(matches_[0].Groups["end"].Value, @"\D", ""), "yyyyMMddHH", CultureInfo.InvariantCulture));
          }
 
-         matches_ = Regex.Matches(input, @"(?<start>\d{4}\D\d{2}\D\d{2}).(?<end>\d{4}\D\d{2}\D\d{2})");
+         matches_ = Regex.Matches(input, @"(?<start>\d{4}\D?\d{2}\D?\d{2}).(?<end>\d{4}\D?\d{2}\D?\d{2})");
          if (matches_.Count == 1) //start and end are in the format yyyy-MM-dd
          {
             return new DatesInterval(DateTime.ParseExact(Regex.Replace(matches_[0].Groups["start"].Value, @"\D", ""), "yyyyMMdd", CultureInfo.InvariantCulture),
